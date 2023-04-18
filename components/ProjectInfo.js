@@ -27,7 +27,7 @@ const ProjectInfo = ({ title, description, credits, isMobile }) => {
 
   const descriptionStyle = {
     fontSize: "11px",
-    opacity: showDescription ? 0.5 : 0,
+    opacity: showDescription ? 0.4 : 0,
     transition: showDescription ? "opacity 1s" : "none",
     whiteSpace: "pre-wrap",
     textAlign: "left",
@@ -37,7 +37,7 @@ const ProjectInfo = ({ title, description, credits, isMobile }) => {
   const creditsStyle = {
     fontSize: "11px",
     fontFamily: "SuisseIntl-BookItalic",
-    opacity: showDescription ? 0.25 : 0,
+    opacity: showDescription ? 0.4 : 0,
     transition: showDescription ? "opacity 1s" : "none",
     whiteSpace: "pre-wrap",
     textAlign: "left",
