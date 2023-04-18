@@ -1,5 +1,5 @@
 // pages/index.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { client } from "../lib/contentful";
 import ProjectBox from "../components/ProjectBox";
 import ProjectInfo from "../components/ProjectInfo";
@@ -22,6 +22,7 @@ const Home = ({ projects }) => {
   const [currentProject, setCurrentProject] = useState(0);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const [scrollCooldown, setScrollCooldown] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleMediaClick = () => {
     setCurrentMediaIndex((prev) => (prev + 1) % projects[currentProject].fields.media.length);
@@ -41,6 +42,12 @@ const Home = ({ projects }) => {
     setTimeout(() => setScrollCooldown(false), 150);
   };
 
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    }
+  }, []);
+
   return (
     <div
       style={{
@@ -54,12 +61,13 @@ const Home = ({ projects }) => {
         media={projects[currentProject].fields.media}
         onMediaClick={handleMediaClick}
         currentMediaIndex={currentMediaIndex}
+        isMobile={isMobile}
       />
       <ProjectInfo
         title={projects[currentProject].fields.title}
         description={projects[currentProject].fields.description}
         credits={projects[currentProject].fields.credit}
-        isMobile={false}
+        isMobile={isMobile}
       />
       <InquiriesButton />
     </div>

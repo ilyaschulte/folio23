@@ -16,7 +16,7 @@ const ProjectInfo = ({ title, description, credits, isMobile }) => {
   }, [title]);
 
   const titleStyle = {
-    fontSize: "11px",
+    fontSize: "14px",
     position: isMobile ? "fixed" : "fixed",
     padding: "0px",
     width: "600px",
@@ -27,21 +27,21 @@ const ProjectInfo = ({ title, description, credits, isMobile }) => {
 
   const descriptionStyle = {
     fontSize: "11px",
-    opacity: showDescription ? 0.4 : 0,
+    opacity: showDescription ? 0.5 : 0,
     transition: showDescription ? "opacity 1s" : "none",
     whiteSpace: "pre-wrap",
     textAlign: "left",
-    paddingTop: "5px",
+    paddingTop: "4px",
   };
 
   const creditsStyle = {
     fontSize: "11px",
-    fontFamily: "SuisseIntl-BookItalic",
-    opacity: showDescription ? 0.4 : 0,
+    fontFamily: "SuisseIntl-Book",
+    opacity: showDescription ? 0.5 : 0,
     transition: showDescription ? "opacity 1s" : "none",
     whiteSpace: "pre-wrap",
     textAlign: "left",
-    paddingTop: "5px",
+    paddingTop: "4px",
   };
 
   return (
