@@ -1,0 +1,17 @@
+/* styles/fonts.css */
+@font-face {
+    font-family: 'SuisseIntl-Book';
+    src: url('/fonts/SuisseIntl-Book.woff2') format('woff2'),
+         url('/fonts/SuisseIntl-Book.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'SuisseIntl-BookItalic';
+    src: url('/fonts/SuisseIntl-BookItalic.woff2') format('woff2'),
+         url('/fonts/SuisseIntl-BookItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+  }
+  

@@ -1,0 +1,7 @@
+/* styles/ProjectInfo.module.css */
+.typeAnimation {
+  border-right: 2px solid rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blink 1s step-end infinite;
+}
