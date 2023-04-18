@@ -16,8 +16,23 @@ const Home = ({ projects }) => {
     setCurrentMediaIndex((prev) => (prev + 1) % projects[currentProject].fields.media.length);
   };
 
+  const playClickSound = async () => {
+    if (typeof window === "undefined") return;
+
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const response = await fetch("/click.mp3");
+    const audioBuffer = await response.arrayBuffer();
+    const decodedAudioData = await audioContext.decodeAudioData(audioBuffer);
+    const soundSource = audioContext.createBufferSource();
+    soundSource.buffer = decodedAudioData;
+    soundSource.connect(audioContext.destination);
+    soundSource.start();
+  };
+
   const handleWheel = (e) => {
     if (scrollCooldown) return;
+
+    playClickSound();
 
     if (e.deltaY > 0) {
       setCurrentProject((prev) => (prev + 1) % projects.length);

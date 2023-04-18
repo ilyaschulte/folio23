@@ -1,7 +1,7 @@
 // components/ProjectInfo.js
 import React, { useEffect, useState } from "react";
 
-const ProjectInfo = ({ title, description, credits, isMobile }) => {
+const ProjectInfo = ({ title, description, credits, isMobile, onTitleChange }) => {
   const [showDescription, setShowDescription] = useState(false);
 
   useEffect(() => {
@@ -10,25 +10,30 @@ const ProjectInfo = ({ title, description, credits, isMobile }) => {
       setShowDescription(true);
     }, 500);
 
+    if (onTitleChange) {
+      onTitleChange();
+    }
+
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [title]);
+  }, [title, onTitleChange]);
 
   const containerStyle = {
     position: isMobile ? "fixed" : "fixed",
-    width: isMobile ? "100%" : "40%",
+    width: "100%",
     textAlign: "left",
     fontFamily: "SuisseIntl-Book",
   };
 
   const titleStyle = {
-    fontSize: "14px",
+    fontSize: "11px",
     padding: "0px",
   };
 
   const descriptionStyle = {
-    fontSize: "14px",
+    fontSize: "11px",
+    fontFamily: "SuisseIntl-BookItalic",
     opacity: showDescription ? 0.5 : 0,
     transition: showDescription ? "opacity 1s" : "none",
     whiteSpace: "pre-wrap",
