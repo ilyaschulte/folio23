@@ -15,18 +15,20 @@ const ProjectInfo = ({ title, description, credits, isMobile }) => {
     };
   }, [title]);
 
-  const titleStyle = {
-    fontSize: "14px",
+  const containerStyle = {
     position: isMobile ? "fixed" : "fixed",
-    padding: "0px",
-    width: "600px",
+    width: isMobile ? "100%" : "40%",
     textAlign: "left",
     fontFamily: "SuisseIntl-Book",
-    width: isMobile ? "100%" : "auto",
+  };
+
+  const titleStyle = {
+    fontSize: "14px",
+    padding: "0px",
   };
 
   const descriptionStyle = {
-    fontSize: "11px",
+    fontSize: "14px",
     opacity: showDescription ? 0.5 : 0,
     transition: showDescription ? "opacity 1s" : "none",
     whiteSpace: "pre-wrap",
@@ -42,11 +44,12 @@ const ProjectInfo = ({ title, description, credits, isMobile }) => {
     whiteSpace: "pre-wrap",
     textAlign: "left",
     paddingTop: "4px",
+    paddingBottom: "10px",
   };
 
   return (
-    <div style={titleStyle}>
-      <div>{title}</div>
+    <div style={containerStyle}>
+      <div style={titleStyle}>{title}</div>
       <div style={descriptionStyle}>{description}</div>
       <div style={creditsStyle}>{credits}</div>
     </div>

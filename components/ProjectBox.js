@@ -1,4 +1,3 @@
-// components/ProjectBox.js
 import React from "react";
 
 const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
@@ -18,8 +17,8 @@ const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
   const isVideo = currentItem.fields.file.contentType.startsWith("video");
 
   const projectBoxStyle = {
-    width: isMobile ? "100vw" : "35vw",
-    height: isMobile ? "100vw" : "35vw",
+    width: isMobile ? "100vw" : "70vh",
+    height: isMobile ? "100vw" : "70vh",
     overflow: "hidden",
     position: "fixed",
     top: "50%",
@@ -31,11 +30,7 @@ const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
   };
 
   return (
-    <div
-      className="project-box"
-      style={projectBoxStyle}
-      onClick={handleClick}
-    >
+    <div className="project-box" style={projectBoxStyle} onClick={handleClick}>
       {isVideo ? (
         <video
           src={currentItem.fields.file.url}

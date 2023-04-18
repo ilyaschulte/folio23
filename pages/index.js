@@ -3,26 +3,14 @@ import React, { useState, useEffect } from "react";
 import { client } from "../lib/contentful";
 import ProjectBox from "../components/ProjectBox";
 import ProjectInfo from "../components/ProjectInfo";
-import InquiriesButton from "../components/InquiriesButton";
-
-export async function getStaticProps() {
-  const response = await client.getEntries({
-    content_type: "project",
-    select: "fields.title,fields.media,fields.description,fields.credit",
-  });
-
-  return {
-    props: {
-      projects: response.items,
-    },
-  };
-}
+import SocialButtons from "../components/SocialButtons";
 
 const Home = ({ projects }) => {
-  const [currentProject, setCurrentProject] = useState(0);
+  const [currentProject, setCurrentProject] = useState(null);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const [scrollCooldown, setScrollCooldown] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isIntro, setIsIntro] = useState(true);
 
   const handleMediaClick = () => {
     setCurrentMediaIndex((prev) => (prev + 1) % projects[currentProject].fields.media.length);
@@ -43,10 +31,16 @@ const Home = ({ projects }) => {
   };
 
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    }
+    const randomIndex = Math.floor(Math.random() * projects.length);
+    setCurrentProject(randomIndex);
+
+    setTimeout(() => {
+      setIsIntro(false);
+      setIsLoading(false);
+    }, 1000);
   }, []);
+
+  const project = projects[currentProject];
 
   return (
     <div
@@ -54,24 +48,64 @@ const Home = ({ projects }) => {
         width: "100%",
         height: "100%",
         position: "fixed",
+        backgroundColor: isIntro ? "black" : "white",
+        overflow: isIntro ? "hidden" : "scroll",
       }}
-      onWheel={handleWheel}
+      onWheel={isIntro ? null : handleWheel}
     >
-      <ProjectBox
-        media={projects[currentProject].fields.media}
-        onMediaClick={handleMediaClick}
-        currentMediaIndex={currentMediaIndex}
-        isMobile={isMobile}
-      />
-      <ProjectInfo
-        title={projects[currentProject].fields.title}
-        description={projects[currentProject].fields.description}
-        credits={projects[currentProject].fields.credit}
-        isMobile={isMobile}
-      />
-      <InquiriesButton />
+      {isLoading && (
+        <div
+          style={{
+            position: "fixed", 
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "black",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ color: "white" }}>ILYA SCHULTE 2023</div>
+        </div>
+      )}
+
+      {!isLoading && (
+        <>
+          <ProjectBox
+            media={project.fields.media}
+            onMediaClick={handleMediaClick}
+            currentMediaIndex={currentMediaIndex}
+            isIntro={isIntro}
+          />
+
+          <ProjectInfo
+            title={project.fields.title}
+            description={project.fields.description}
+            credits={project.fields.credit}
+            isMobile={false}
+            isIntro={isIntro}
+          />
+
+          <SocialButtons />
+        </>
+      )}
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const response = await client.getEntries({
+    content_type: "project",
+    select: "fields.title,fields.media,fields.description,fields.credit",
+  });
+
+  return {
+    props: {
+      projects: response.items,
+    },
+  };
+}
 
 export default Home;
