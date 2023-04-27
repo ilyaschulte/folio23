@@ -1,29 +1,27 @@
-// ProjectBox.js
 import React, { useState, useRef, useEffect } from "react";
 
-const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
+
+const ProjectBox = ({ media, onMediaClick, currentMediaIndex }) => {
   const [cursorLabel, setCursorLabel] = useState("");
   const cursorLabelRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  const handleClick = () => {
-    if (onMediaClick) {
-      onMediaClick();
-    }
+  const updateIsMobile = () => {
+    setIsMobile(window.innerWidth <= 768);
   };
 
-  const handleMouseEnter = () => {
-    setCursorLabel("Next");
-  };
-
-  const handleMouseLeave = () => {
-    setCursorLabel("");
-  };
+  useEffect(() => {
+    window.addEventListener("resize", updateIsMobile);
+    return () => {
+      window.removeEventListener("resize", updateIsMobile);
+    };
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (cursorLabelRef.current) {
-        cursorLabelRef.current.style.left = `${e.pageX}px`;
-        cursorLabelRef.current.style.top = `${e.pageY}px`;
+        cursorLabelRef.current.style.left = `${e.pageX - 10}px`;
+        cursorLabelRef.current.style.top = `${e.pageY - 5}px`;
       }
     };
 
@@ -38,6 +36,26 @@ const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
     };
   }, [cursorLabel]);
 
+  const handleClick = () => {
+    if (onMediaClick) {
+      onMediaClick();
+    }
+  };
+
+  const handleMouseEnter = (e) => {
+    if (!isMobile) {
+      setCursorLabel("NEXT");
+      if (cursorLabelRef.current) {
+        cursorLabelRef.current.style.left = `${e.pageX - 10}px`;
+        cursorLabelRef.current.style.top = `${e.pageY - 5}px`;
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setCursorLabel("");
+  };
+
   const mediaStyle = {
     width: "100%",
     height: "100%",
@@ -45,8 +63,8 @@ const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
   };
 
   const projectBoxStyle = {
-    width: isMobile ? "100vw" : "60vh",
-    height: isMobile ? "100vw" : "60vh",
+    width: isMobile ? 'calc(100vw - 10px)' : "50vh",
+    height: isMobile ? 'calc(100vw - 10px)' : "50vh",
     overflow: "hidden",
     position: "fixed",
     top: "50%",
@@ -55,13 +73,12 @@ const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    cursor: cursorLabel ? "none" : "default",
-  };
+    cursor: cursorLabel && media.length > 1 ? "none" : "default",
+  };  
 
   const cursorLabelStyle = {
     position: "fixed",
-    fontFamily: "SuisseIntl, sans-serif",
-    fontSize: "14px",
+    fontSize: "11px",
     color: "black",
     pointerEvents: "none",
   };
@@ -75,7 +92,7 @@ const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
         className="project-box"
         style={projectBoxStyle}
         onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
+        onMouseEnter={(e) => handleMouseEnter(e)}
         onMouseLeave={handleMouseLeave}
       >
         {isVideo ? (
@@ -85,6 +102,8 @@ const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
             style={mediaStyle}
             loop
             autoPlay
+            playsInline
+            controls={false}
           />
         ) : (
           <img
@@ -94,7 +113,7 @@ const ProjectBox = ({ media, onMediaClick, currentMediaIndex, isMobile }) => {
           />
         )}
       </div>
-      {cursorLabel && (
+      {cursorLabel && media.length > 1 && (
         <div style={cursorLabelStyle} ref={cursorLabelRef}>
           {cursorLabel}
         </div>

@@ -22,6 +22,9 @@ const ProjectInfo = ({ title, description, credits, isMobile, onTitleChange }) =
   const containerStyle = {
     position: isMobile ? "fixed" : "fixed",
     width: "100%",
+    paddingLeft: isMobile ? "16px" : "0", // Add left padding for mobile
+    paddingRight: isMobile ? "16px" : "0", // Add right padding for mobile
+    maxWidth: isMobile ? "calc(100% - 32px)" : "100%", // Set maximum width for mobile
     textAlign: "left",
     fontFamily: "SuisseIntl-Book",
   };
@@ -33,8 +36,8 @@ const ProjectInfo = ({ title, description, credits, isMobile, onTitleChange }) =
 
   const descriptionStyle = {
     fontSize: "11px",
-    fontFamily: "SuisseIntl-BookItalic",
-    opacity: showDescription ? 0.5 : 0,
+    fontFamily: "SuisseIntl-Book",
+    opacity: showDescription ? 0.3 : 0,
     transition: showDescription ? "opacity 1s" : "none",
     whiteSpace: "pre-wrap",
     textAlign: "left",
@@ -44,7 +47,7 @@ const ProjectInfo = ({ title, description, credits, isMobile, onTitleChange }) =
   const creditsStyle = {
     fontSize: "11px",
     fontFamily: "SuisseIntl-Book",
-    opacity: showDescription ? 0.5 : 0,
+    opacity: showDescription ? 0.3 : 0,
     transition: showDescription ? "opacity 1s" : "none",
     whiteSpace: "pre-wrap",
     textAlign: "left",

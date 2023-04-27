@@ -1,17 +1,22 @@
 /* ProjectBox.module.css */
 .next-cursor {
-  cursor: default;
+  cursor: none;
 }
 
 .next-cursor:hover::before {
   content: "Next";
   font-family: "SuisseIntl", sans-serif;
   font-size: 14px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: transparent;
-  color: black;
+  position: fixed;
+  background-color: black;
+  color: white;
+  mix-blend-mode: difference;
+  padding: 4px;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.next-cursor:hover::before {
+  opacity: 1;
 }

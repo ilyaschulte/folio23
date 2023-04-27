@@ -14,4 +14,11 @@
     font-weight: 400;
     font-style: italic;
   }
+
+  @font-face {
+     font-family: 'SuisseIntl-Thin';
+     src: url('/fonts/SuisseIntl-Thin.woff2') format('woff2'),
+          url('/fonts/SuisseIntl-Thin.woff') format('woff');
+     font-weight: 100;
+   }
   

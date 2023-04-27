@@ -8,12 +8,12 @@ const SocialButtons = () => {
 
   const socialButtons = {
     position: 'fixed',
-    bottom: '10px',
+    bottom: '5px',
+    width: 'calc(100% - 10px)', // Subtract the body's left and right padding (20px each)
     display: 'flex',
-    alignItems: 'center',
+    justifyContent: 'space-between',
     listStyle: 'none',
-    margin: 0,
-    padding: 0,
+    left: '5px', // Align with the body's left padding
   };
 
   const socialButton = {
@@ -21,7 +21,6 @@ const SocialButtons = () => {
     color: 'black',
     fontSize: '11px',
     fontFamily: 'SuisseIntl-Book',
-    marginRight: '10px',
     cursor: 'pointer',
   };
 
@@ -38,7 +37,7 @@ const SocialButtons = () => {
       <li>
         <a
           style={socialButton}
-          onClick={() => handleClick('https://www.instagram.com')}
+          onClick={() => handleClick('https://www.instagram.com/ilyaschulte')}
         >
           INSTAGRAM
         </a>
@@ -46,7 +45,7 @@ const SocialButtons = () => {
       <li>
         <a
           style={socialButton}
-          onClick={() => handleClick('https://www.linkedin.com')}
+          onClick={() => handleClick('https://www.linkedin.com/in/ilya-schulte')}
         >
           LINKEDIN
         </a>
@@ -54,7 +53,7 @@ const SocialButtons = () => {
       <li>
         <a
           style={socialButton}
-          onClick={() => handleClick('https://www.are.na')}
+          onClick={() => handleClick('https://www.are.na/ilya-schulte')}
         >
           ARE.NA
         </a>
